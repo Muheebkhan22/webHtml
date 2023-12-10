@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>using dom</title>
+</head>
+<body>
+    <button onclick="change()">change</button>
+    <div id="data"></div>
+    <script>
+        const change=()=>{
+            let html = `
+            <table border=1>
+                <tr>
+                    <th>ID</th>  
+                    <th>NAME</th>  
+                    <th>ROLL NO</th>  
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>ali khan</td>
+                    <td>06</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Ahmad khan</td>
+                    <td>08</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>muheeb</td>
+                    <td>09</td>
+                </tr>
+                </table>
+            `
+            document.getElementById("data").innerHTML = html;
+        }
+    </script>
+</body>
+</html>

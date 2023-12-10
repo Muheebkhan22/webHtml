@@ -1,0 +1,26 @@
+body{
+    background-color: lightcoral;
+}
+h1{
+    color: blue;
+    text-align: center;
+}
+p{
+    color: red; size: 15px white;
+    
+}
+h2{
+    border: 2px solid red;
+}
+p.dotted {border-style: dotted blue;}
+h3{
+    border: 1px solid green;
+    font-size: 50px ;
+    margin: 100px;
+    padding: 60px;
+}
+div{
+    width: 200;
+    height: 300;
+    border: 2px solid blue;
+}

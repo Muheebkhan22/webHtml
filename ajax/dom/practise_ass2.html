@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Country Information</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+<table id="country-table">
+  <thead>
+    <tr>
+      <th>Common Name</th>
+      <th>Official Name</th>
+      <th>Capital</th>
+      <th>Region</th>
+      <th>Subregion</th>
+      <th>Population</th>
+      <th>languages</th>
+      <th>Borders</th>
+      <th>continents</th>
+
+      <!-- Add more table headers as needed -->
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+// API endpoint
+const apiUrl = "https://restcountries.com/v3.1/name/pakistan";
+
+// Function to display country information in a table
+function displayCountryInfo(data) {
+  const countryTableBody = document.querySelector("#country-table tbody");
+
+  // Clear previous content
+  countryTableBody.innerHTML = "";
+
+  // Display relevant information in a table
+  data.forEach(countryInfo => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${countryInfo.name.common}</td>
+      <td>${countryInfo.name.official}</td>
+      <td>${countryInfo.capital.join(', ')}</td>
+      <td>${countryInfo.region}</td>
+      <td>${countryInfo.subregion}</td>
+      <td>${countryInfo.population}</td>
+      <td>${countryInfo.languages.eng}</td>
+      <td>${countryInfo.borders}</td>
+      <td>${countryInfo.continents}</td>
+      
+      <!-- Add more table cells as needed -->
+    `;
+    countryTableBody.appendChild(row);
+  });
+}
+
+// Make the request using the fetch API
+fetch(apiUrl)
+  .then(response => {
+    // Check if the request was successful (status code 200)
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    // Parse the JSON data
+    return response.json();
+  })
+  .then(data => {
+    // Display country information in a table
+    displayCountryInfo(data);
+  })
+  .catch(error => {
+    console.error("Error fetching data:", error);
+  });
+</script>
+
+</body>
+</html>
