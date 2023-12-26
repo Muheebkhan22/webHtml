@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Display Country Data</title>
+  <!-- Include Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #map {
+      height: 300px; /* Adjust the height as needed */
+      margin-bottom: 20px;
+    }
+    table {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container mt-5 table-hover table-striped table-bordered">
+    <h1>Country Data for Pakistan</h1>
+    <div id="map"></div>
+    <div id="countryData"></div>
+  </div>
+
+  <!-- Include Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Include Google Maps API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+
+  <script>
+    function initMap() {
+      // Replace YOUR_GOOGLE_MAPS_API_KEY with your actual Google Maps API key
+      const map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 30.3753, lng: 69.3451 }, // Coordinates for Pakistan
+        zoom: 5
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const apiUrl = 'https://restcountries.com/v3.1/name/pakistan';
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          const countryDataDiv = document.getElementById('countryData');
+
+          // Assuming the response is an array and Pakistan is the first item
+          const pakistanData = data[0];
+
+          // Generate a Bootstrap table dynamically based on all properties of the API response
+          const table = document.createElement('table');
+          table.classList.add('table');
+
+          for (const property in pakistanData) {
+            if (pakistanData.hasOwnProperty(property)) {
+              const row = table.insertRow();
+              const cell1 = row.insertCell(0);
+              const cell2 = row.insertCell(1);
+
+              cell1.innerHTML = `<strong>${property}</strong>`;
+              cell2.textContent = JSON.stringify(pakistanData[property]);
+            }
+          }
+
+          // Append the table to the countryDataDiv
+          countryDataDiv.appendChild(table);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    });
+  </script>
+
+</body>
+</html>
